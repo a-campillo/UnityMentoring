@@ -1,4 +1,4 @@
-public class PureType
+public class PureType // : MonoBehaviour
 {
     // Public member, can be accessed everywhere
     public string name;
@@ -23,6 +23,30 @@ public class PureType
     public string GetName() => name;
 
     public int GetId() => id;
+
+    public string AreEqual(int a, float b)
+    {
+        // a == b
+        if (a == b)
+        {
+            return "true"; // not the same as "True", "tRUE", "TRUE"
+        }
+        else
+        {
+            return "false";
+        }
+    }
+
+    //public bool AreEqual(int a, int b)
+    //{
+    //    // a == b
+    //    return a == b;
+    //}
+
+    //public int AreEqual(int a, int b)
+    //{
+    //    return System.Math.Abs(a - b);
+    //}
 
     // Live demo 1: Create an array of values, filled with random nums between 1 and 100
     // Live demo 2: Create a function that compares two numbers and retrieves the greatest/lowest among them
