@@ -10,6 +10,9 @@ namespace SurvivalProj.Behaviours
         [SerializeField]
         private float runSpeed = 60F;
 
+        [SerializeField]
+        private float rotationSpeed = 20F;
+
         private Character character;
         private Weapon weapon;
 
@@ -33,17 +36,42 @@ namespace SurvivalProj.Behaviours
 
             if (xVal != 0F)
             {
-                isRunning = Input.GetAxis("Fire2") > 0;
-                
-                transform.Translate(Vector3.right * (isRunning ? runSpeed : moveSpeed) * xVal * Time.deltaTime);
+                //isRunning = Input.GetAxis("Fire2") > 0;
+
+                //transform.Translate(Vector3.right * (isRunning ? runSpeed : moveSpeed) * xVal * Time.deltaTime);
+
+                transform.Rotate(Vector3.up * xVal * rotationSpeed * Time.deltaTime);
+
             }
 
             if (yVal != 0F)
             {
                 isRunning = Input.GetAxis("Fire2") > 0;
 
-                transform.Translate(Vector3.forward * (isRunning ? runSpeed : moveSpeed) * yVal * Time.deltaTime);
+                //transform.Translate(Vector3.forward * (isRunning ? runSpeed : moveSpeed) * yVal * Time.deltaTime);
+
+                if (isRunning)
+                {
+                    transform.Translate(Vector3.forward * runSpeed * yVal * Time.deltaTime);
+
+                }
+                else
+                {
+                    transform.Translate(Vector3.forward * moveSpeed * yVal * Time.deltaTime);
+                }
             }
+
+            //transform.Rotate(Vector3.up * Input.GetAxis("Mouse X") * rotationSpeed * Time.deltaTime);
+
+            //if (Input.GetKey(KeyCode.Q))
+            //{
+            //    transform.Rotate(Vector3.up * -rotationSpeed * Time.deltaTime);
+            //}
+            
+            //else if (Input.GetKey(KeyCode.E))
+            //{
+            //    transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+            //}
         }
     }
 }
