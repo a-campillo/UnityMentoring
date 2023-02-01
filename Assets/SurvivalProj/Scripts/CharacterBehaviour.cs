@@ -4,26 +4,33 @@ namespace SurvivalProj.Behaviours
 
     public class CharacterBehaviour : MonoBehaviour
     {
+        [Header("Movement")]
         [SerializeField]
         private float moveSpeed = 10F;
 
         [SerializeField]
         private float runSpeed = 60F;
 
+        [Header("Rotation")]
         [SerializeField]
         private float rotationSpeed = 20F;
+
+        [SerializeField]
+        private float mouseRotationDeadZone = 10F;
 
         private Character character;
         private Weapon weapon;
 
-        private float xVal = 0F;
         private float yVal = 0F;
 
-        private Vector2 rotValue;
-        private float currentMousePosition = 0F;
-        private bool facingForward = true;
-
         private bool isRunning = false;
+
+        private new Rigidbody rigidbody;
+
+        private Ray ray;
+        private RaycastHit hit;
+
+        private Vector3 screenCenter;
 
         // Start is called before the first frame update
         private void Start()
@@ -32,19 +39,21 @@ namespace SurvivalProj.Behaviours
 
             character = new Character("Hero", 10);
             weapon = new Weapon("PeyeSword");
+
+            screenCenter = new Vector3(Screen.width / 2F, Screen.height / 2F);
+
+            this.rigidbody = GetComponent<Rigidbody>();
         }
 
         // Update is called once per frame
         private void Update()
         {
-            ProcessMovement();
-
+            //ProcessMovement();
             ProcessRotation();
         }
 
         private void ProcessMovement()
         {
-            xVal = Input.GetAxis("Horizontal");
             yVal = Input.GetAxis("Vertical");
 
             if (yVal != 0F)
@@ -62,10 +71,26 @@ namespace SurvivalProj.Behaviours
             }
         }
 
+        private void FixedUpdate()
+        {
+            ProcessMovementWithPhysics();
+        }
+
+        private void ProcessMovementWithPhysics()
+        {
+            yVal = Input.GetAxis("Vertical");
+
+            if (yVal != 0)
+            {
+                isRunning = Input.GetAxis("Fire2") > 0;
+                rigidbody.MovePosition(transform.position + transform.forward * (isRunning ? runSpeed : moveSpeed) * yVal * Time.fixedDeltaTime);
+            }
+        }
+
         private void ProcessRotation()
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
+            ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
             if (Physics.Raycast(ray, out hit))
             {
                 transform.LookAt(hit.point); // Look at the point

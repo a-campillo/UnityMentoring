@@ -12,12 +12,20 @@ public class FollowComponent : MonoBehaviour
 
     private void Start()
     {
-        offset = transform.position - target.position;
+        if (target == null)
+        {
+            enabled = false;
+        }
+        else
+        {
+            offset = transform.position - target.position;
+        }
     }
 
     // Update is called once per frame
     private void Update()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + offset, cameraMoveSpeed * Time.deltaTime);
+        transform.LookAt(target);
     }
 }
