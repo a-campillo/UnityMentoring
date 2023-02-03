@@ -9,6 +9,19 @@ namespace SurvivalProj
 
         public int GetHP() => hp;
 
+        public void AlterHP(int val)
+        {
+            if (hp > 0)
+            {
+                hp += val;
+
+                if (hp < 0)
+                {
+                    hp = 0;
+                } 
+            }
+        }
+
         public Character(string name, int hp = 1)
         {
             this.name = name;

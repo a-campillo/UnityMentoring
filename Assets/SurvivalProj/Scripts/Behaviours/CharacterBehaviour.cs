@@ -32,6 +32,8 @@ namespace SurvivalProj.Behaviours
 
         private Vector3 screenCenter;
 
+        public Character Character { get { return character; } }
+
         // Start is called before the first frame update
         private void Start()
         {
