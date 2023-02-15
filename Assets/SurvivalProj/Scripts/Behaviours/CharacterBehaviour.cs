@@ -4,6 +4,8 @@ namespace SurvivalProj.Behaviours
 
     public class CharacterBehaviour : MonoBehaviour
     {
+        public static readonly string CHARACTER_LAYER_NAME = "Player";
+
         [Header("Movement")]
         [SerializeField]
         private float moveSpeed = 10F;
@@ -17,6 +19,16 @@ namespace SurvivalProj.Behaviours
 
         [SerializeField]
         private float mouseRotationDeadZone = 10F;
+
+        [Header("Shoot")]
+        [SerializeField]
+        private Rigidbody bulletPrefab;
+
+        [SerializeField]
+        private float shootForce = 150F;
+
+        [SerializeField]
+        private Transform spawnPosition;
 
         private Character character;
         private Weapon weapon;
@@ -32,7 +44,8 @@ namespace SurvivalProj.Behaviours
 
         private Vector3 screenCenter;
 
-        public Character Character { get { return character; } }
+        public Character Character
+        { get { return character; } }
 
         // Start is called before the first frame update
         private void Start()
@@ -50,8 +63,16 @@ namespace SurvivalProj.Behaviours
         // Update is called once per frame
         private void Update()
         {
-            //ProcessMovement();
             ProcessRotation();
+            ProcessBulletShoot();
+        }
+
+        private void ProcessBulletShoot()
+        {
+            if (bulletPrefab != null && spawnPosition != null && Input.GetButtonDown("Fire1"))
+            {
+                Instantiate<Rigidbody>(bulletPrefab, spawnPosition.position, transform.rotation).AddForce(transform.forward * shootForce, ForceMode.VelocityChange);
+            }
         }
 
         private void ProcessMovement()
