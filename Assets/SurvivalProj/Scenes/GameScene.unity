@@ -536,7 +536,9 @@ MonoBehaviour:
   runSpeed: 20
   rotationSpeed: 200
   mouseRotationDeadZone: 10
-  bulletPrefab: {fileID: 6627540183910990608, guid: 137bec9ce10796b42aba2fe90d2bf76e,
+  bulletPrefab: {fileID: 1809457085014334272, guid: 137bec9ce10796b42aba2fe90d2bf76e,
+    type: 3}
+  superBulletPrefab: {fileID: 1809457085014334272, guid: 7c41be90d71894f4e8de401e5c39a474,
     type: 3}
   shootForce: 50
   spawnPosition: {fileID: 1347990041}
@@ -1190,3 +1192,72 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &8681366636835755669
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504147, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8681366635882504148, guid: 5238551a85669514fb4d954de391caba,
+        type: 3}
+      propertyPath: m_Name
+      value: SuperBulletPickup
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5238551a85669514fb4d954de391caba, type: 3}

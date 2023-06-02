@@ -22,7 +22,10 @@ namespace SurvivalProj.Behaviours
 
         [Header("Shoot")]
         [SerializeField]
-        private Rigidbody bulletPrefab;
+        private GameObject bulletPrefab;
+
+        [SerializeField]
+        private GameObject superBulletPrefab;
 
         [SerializeField]
         private float shootForce = 150F;
@@ -44,8 +47,17 @@ namespace SurvivalProj.Behaviours
 
         private Vector3 screenCenter;
 
+        private bool superBulletEnabled;
+        private int remainingSuperBullet;
+
         public Character Character
         { get { return character; } }
+
+        public void EnableSuperBullet(int ammo)
+        {
+            superBulletEnabled = true;
+            remainingSuperBullet += ammo;
+        }
 
         // Start is called before the first frame update
         private void Start()
@@ -64,14 +76,54 @@ namespace SurvivalProj.Behaviours
         private void Update()
         {
             ProcessRotation();
-            ProcessBulletShoot();
+            ProcessBulletShoot(superBulletEnabled);
         }
 
         private void ProcessBulletShoot()
         {
-            if (bulletPrefab != null && spawnPosition != null && Input.GetButtonDown("Fire1"))
+            if (bulletPrefab != null)// && spawnPosition != null && Input.GetButtonDown("Fire1"))
             {
-                Instantiate<Rigidbody>(bulletPrefab, spawnPosition.position, transform.rotation).AddForce(transform.forward * shootForce, ForceMode.VelocityChange);
+                //Rigidbody bulletClone = Instantiate<Rigidbody>(bulletPrefab, spawnPosition.position, spawnPosition.rotation); // Instantiates bullet
+                //bulletClone.AddForce(transform.forward * shootForce, ForceMode.VelocityChange);
+
+                //GameObject cloneGO = Instantiate(bulletPrefab, spawnPosition.position, spawnPosition.rotation); // Clone GO;
+                //Rigidbody rb = cloneGO.GetComponent<Rigidbody>();
+                //rb.AddForce(transform.forward * shootForce, ForceMode.VelocityChange); // shoots bullet
+
+                Instantiate(bulletPrefab, spawnPosition.position, spawnPosition.rotation) // Clone GO
+                    .GetComponent<Rigidbody>() // Retrieves Rigidbody component
+                    .AddForce(transform.forward * shootForce, ForceMode.VelocityChange); // shoots bullet
+            }
+            else if (superBulletPrefab != null)// && spawnPosition != null && Input.GetButtonDown("Fire2"))
+            {
+                Instantiate(superBulletPrefab, (spawnPosition.position + spawnPosition.forward * 0.5F), spawnPosition.rotation) // Clone GO
+                    .GetComponent<Rigidbody>() // Retrieves Rigidbody component
+                    .AddForce(transform.forward * shootForce, ForceMode.VelocityChange); // shoots bullet
+            }
+        }
+
+        private void ProcessBulletShoot(bool useSuperBullet)
+        {
+            if (spawnPosition != null && Input.GetButtonDown("Fire1"))
+            {
+                if (useSuperBullet)
+                {
+                    Instantiate(superBulletPrefab, (spawnPosition.position + spawnPosition.forward * 0.5F), spawnPosition.rotation) // Clone GO
+                        .GetComponent<Rigidbody>() // Retrieves Rigidbody component
+                        .AddForce(transform.forward * shootForce, ForceMode.VelocityChange); // shoots bullet
+
+                    remainingSuperBullet -= 1;
+
+                    if (remainingSuperBullet < 1)
+                    {
+                        remainingSuperBullet = 0;
+                        superBulletEnabled = false;
+                    }
+                }
+                else
+                {
+                    ProcessBulletShoot();
+                } 
             }
         }
 
@@ -81,7 +133,7 @@ namespace SurvivalProj.Behaviours
 
             if (yVal != 0F)
             {
-                isRunning = Input.GetAxis("Fire2") > 0;
+                isRunning = Input.GetAxis("Run") > 0;
 
                 if (isRunning)
                 {
